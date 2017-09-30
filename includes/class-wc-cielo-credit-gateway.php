@@ -359,7 +359,7 @@ class WC_Cielo_Credit_Gateway extends WC_Cielo_Helper {
 
 		// Test the installments.
 		if ( $valid ) {
-			$valid = $this->validate_installments( $_POST, $order->order_total );
+			$valid = $this->validate_installments( $_POST, $order->get_total() );
 		}
 
 		if ( $valid ) {
@@ -414,7 +414,7 @@ class WC_Cielo_Credit_Gateway extends WC_Cielo_Helper {
 
 		// Test the installments.
 		if ( $valid ) {
-			$valid = $this->validate_installments( $_POST, $order->order_total );
+			$valid = $this->validate_installments( $_POST, $order->get_total() );
 		}
 
 		if ( $valid ) {
@@ -478,7 +478,7 @@ class WC_Cielo_Credit_Gateway extends WC_Cielo_Helper {
                 $discount_total = $this->get_credit_discount( (float) $order->get_total() );
 
                 $items['payment_method']['value'] .= ' ';
-                $items['payment_method']['value'] .= sprintf( __( 'with discount of %s. Order Total: %s.', 'cielo-woocommerce' ), $this->credit_discount_x1 . '%', sanitize_text_field( woocommerce_price( $discount_total ) ) );
+                $items['payment_method']['value'] .= sprintf( __( 'with discount of %s. Order Total: %s.', 'cielo-woocommerce' ), $this->credit_discount_x1 . '%', sanitize_text_field( wc_price( $discount_total ) ) );
             }
 
             $items['payment_method']['value'] .= '</small>';

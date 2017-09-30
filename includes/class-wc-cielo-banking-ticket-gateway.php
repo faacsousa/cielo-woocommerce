@@ -364,7 +364,7 @@ class WC_Cielo_Banking_Ticket_Gateway extends WC_Cielo_Helper {
 //				$discount_total = $this->get_debit_discount( (float) $order->get_total() );
 //
 //				$items['payment_method']['value'] .= ' ';
-//				$items['payment_method']['value'] .= sprintf( __( 'with discount of %s. Order Total: %s.', 'cielo-woocommerce' ), $this->debit_discount . '%', sanitize_text_field( woocommerce_price( $discount_total ) ) );
+//				$items['payment_method']['value'] .= sprintf( __( 'with discount of %s. Order Total: %s.', 'cielo-woocommerce' ), $this->debit_discount . '%', sanitize_text_field( wc_price( $discount_total ) ) );
 //			}
 
 //			$items['payment_method']['value'] .= '</small>';

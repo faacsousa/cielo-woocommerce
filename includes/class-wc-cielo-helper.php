@@ -405,7 +405,7 @@ abstract class WC_Cielo_Helper extends WC_Payment_Gateway {
 
 		for ( $i = 1; $i <= $installments; $i++ ) {
 			$credit_total    = $order_total / $i;
-			$credit_interest = sprintf( __( 'no interest. Total: %s', 'cielo-woocommerce' ), sanitize_text_field( woocommerce_price( $order_total ) ) );
+			$credit_interest = sprintf( __( 'no interest. Total: %s', 'cielo-woocommerce' ), sanitize_text_field( wc_price( $order_total ) ) );
 			$smallest_value  = ( 5 <= $this->smallest_installment ) ? $this->smallest_installment : 5;
 
 			//if ( 'client' == $this->installment_type && $i >= $this->interest && 0 < $interest_rate ) {
@@ -415,7 +415,7 @@ abstract class WC_Cielo_Helper extends WC_Payment_Gateway {
 
 				if ( $credit_total < $interest_total ) {
 					$credit_total    = $interest_total;
-					$credit_interest = sprintf( __( 'with interest of %s%% a.m. Total: %s', 'cielo-woocommerce' ), $this->get_valid_value( $this->interest_rate ), sanitize_text_field( woocommerce_price( $interest_order_total ) ) );
+					$credit_interest = sprintf( __( 'with interest of %s%% a.m. Total: %s', 'cielo-woocommerce' ), $this->get_valid_value( $this->interest_rate ), sanitize_text_field( wc_price( $interest_order_total ) ) );
 				}
 			}
 
@@ -429,13 +429,13 @@ abstract class WC_Cielo_Helper extends WC_Payment_Gateway {
                 $at_sight = 'cielo-at-sight';
 
                 $credit_total    = (isset($this->credit_discount_x1)) ? ($order_total * ((100 - $this->credit_discount_x1) / 100)) : $order_total;
-                $credit_interest = sprintf( __( 'with discount. Total: %s', 'cielo-woocommerce' ), sanitize_text_field( woocommerce_price( $credit_total ) ) );
+                $credit_interest = sprintf( __( 'with discount. Total: %s', 'cielo-woocommerce' ), sanitize_text_field( wc_price( $credit_total ) ) );
 			}
 
 			if ( 'select' == $type ) {
-				$html .= '<option value="' . $i . '" class="' . $at_sight . '">' . sprintf( __( '%sx of %s %s', 'cielo-woocommerce' ), $i, sanitize_text_field( woocommerce_price( $credit_total ) ), $credit_interest ) . '</option>';
+				$html .= '<option value="' . $i . '" class="' . $at_sight . '">' . sprintf( __( '%sx of %s %s', 'cielo-woocommerce' ), $i, sanitize_text_field( wc_price( $credit_total ) ), $credit_interest ) . '</option>';
 			} else {
-				$html .= '<label class="' . $at_sight . '"><input type="radio" name="cielo_credit_installments" value="' . $i . '" /> ' . sprintf( __( '%sx of %s %s', 'cielo-woocommerce' ), $i, '<strong>' . sanitize_text_field( woocommerce_price( $credit_total ) ) . '</strong>', $credit_interest ) . '</label>';
+				$html .= '<label class="' . $at_sight . '"><input type="radio" name="cielo_credit_installments" value="' . $i . '" /> ' . sprintf( __( '%sx of %s %s', 'cielo-woocommerce' ), $i, '<strong>' . sanitize_text_field( wc_price( $credit_total ) ) . '</strong>', $credit_interest ) . '</label>';
 			}
 		}
 
@@ -458,7 +458,7 @@ abstract class WC_Cielo_Helper extends WC_Payment_Gateway {
 	 */
 	public function get_installment_text( $quantity, $order_total ) {
 		$credit_total    = $order_total / $quantity;
-		$credit_interest = sprintf( __( 'no interest. Total: %s', 'cielo-woocommerce' ), sanitize_text_field( woocommerce_price( $order_total ) ) );
+		$credit_interest = sprintf( __( 'no interest. Total: %s', 'cielo-woocommerce' ), sanitize_text_field( wc_price( $order_total ) ) );
 		$interest_rate   = $this->get_valid_value( $this->interest_rate ) / 100;
 
 		//if ( 'client' == $this->installment_type && $quantity >= $this->interest && 0 < $interest_rate ) {
@@ -468,17 +468,17 @@ abstract class WC_Cielo_Helper extends WC_Payment_Gateway {
 
 			if ( $credit_total < $interest_total ) {
 				$credit_total    = $interest_total;
-				$credit_interest = sprintf( __( 'with interest of %s%% a.m. Total: %s', 'cielo-woocommerce' ), $this->get_valid_value( $this->interest_rate ), sanitize_text_field( woocommerce_price( $interest_order_total ) ) );
+				$credit_interest = sprintf( __( 'with interest of %s%% a.m. Total: %s', 'cielo-woocommerce' ), $this->get_valid_value( $this->interest_rate ), sanitize_text_field( wc_price( $interest_order_total ) ) );
 			}
 		}
 
         if ( 1 == $quantity ) {
 
             $credit_total    = (isset($this->credit_discount_x1)) ? ($order_total * ((100 - $this->credit_discount_x1) / 100)) : $order_total;
-            $credit_interest = sprintf( __( 'with discount. Total: %s', 'cielo-woocommerce' ), sanitize_text_field( woocommerce_price( $credit_total ) ) );
+            $credit_interest = sprintf( __( 'with discount. Total: %s', 'cielo-woocommerce' ), sanitize_text_field( wc_price( $credit_total ) ) );
         }
 
-		return sprintf( __( '%sx of %s %s', 'cielo-woocommerce' ), $quantity, sanitize_text_field( woocommerce_price( $credit_total ) ), $credit_interest );
+		return sprintf( __( '%sx of %s %s', 'cielo-woocommerce' ), $quantity, sanitize_text_field( wc_price( $credit_total ) ), $credit_interest );
 	}
 
 	/**
@@ -804,7 +804,7 @@ abstract class WC_Cielo_Helper extends WC_Payment_Gateway {
 		}
 
 		if ( $order->status == 'processing' || $order->status == 'completed' ) {
-			echo '<div class="woocommerce-message"><a href="' . esc_url( $order_url ) . '" class="button" style="display: block !important; visibility: visible !important;">' . __( 'View order details', 'cielo-woocommerce' ) . '</a>' . sprintf( __( 'Your payment has been received successfully.', 'cielo-woocommerce' ), woocommerce_price( $order->order_total ) ) . '<br />' . __( 'The authorization code was generated.', 'cielo-woocommerce' ) . '</div>';
+			echo '<div class="woocommerce-message"><a href="' . esc_url( $order_url ) . '" class="button" style="display: block !important; visibility: visible !important;">' . __( 'View order details', 'cielo-woocommerce' ) . '</a>' . sprintf( __( 'Your payment has been received successfully.', 'cielo-woocommerce' ), wc_price( $order->get_total() ) ) . '<br />' . __( 'The authorization code was generated.', 'cielo-woocommerce' ) . '</div>';
 		} else {
 			echo '<div class="woocommerce-info">' . sprintf( __( 'For more information or questions regarding your order, go to the %s.', 'cielo-woocommerce' ), '<a href="' . esc_url( $order_url ) . '">' . __( 'order details page', 'cielo-woocommerce' ) . '</a>' ) . '</div>';
 		}

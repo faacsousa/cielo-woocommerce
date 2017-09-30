@@ -678,7 +678,7 @@ class WC_Cielo_API_3_0 {
             if (!$this->get_sale_return_status($returnCode)) {
                 $this->gateway->add_error((string)$this->get_sale_return_message($returnCode));
                 if ('yes' == $this->gateway->debug) {
-                    $this->gateway->log->add( 'Sale - Code: ' . $status . ' Message: ' . $this->get_sale_return_message($returnCode) );
+                    $this->gateway->log->add( $this->gateway->id, 'Sale - Code: ' . $status . ' Message: ' . $this->get_sale_return_message($returnCode) );
                 }
 
                 return Array(
@@ -792,7 +792,7 @@ class WC_Cielo_API_3_0 {
 
         $sale = new Sale($id);
 
-        $customer = $sale->customer( trim($order->billing_first_name) . ' ' . trim($order->billing_last_name) );
+        $customer = $sale->customer( trim($order->get_billing_first_name()) . ' ' . trim($order->get_billing_last_name()) );
 
         if ($installments > 0) {
             $payment = $sale->payment(number_format($order_total, 2, '', ''), $installments);
