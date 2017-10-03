@@ -130,6 +130,8 @@ class WC_Cielo_API_3_0 {
     public function get_sale_return_status( $sale_code ) {
 
         $status = array(
+            '4' => true,
+            '6' => true,
             '00' => true,//'Transação autorizada com sucesso.',
             '000' => true,//'Transação autorizada com sucesso.',
             '01' => false,//'Transação não autorizada. Transação referida.',
@@ -256,6 +258,8 @@ class WC_Cielo_API_3_0 {
     public function get_sale_return_message( $sale_code ) {
 
         $status = array(
+            '4' => 'Transação autorizada com sucesso.',
+            '6' => 'Transação autorizada com sucesso.',
             '00' => 'Transação autorizada com sucesso.',
             '000' => 'Transação autorizada com sucesso.',
             '01' => 'Transação não autorizada.', // 'Transação referida.',
