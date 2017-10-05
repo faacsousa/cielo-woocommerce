@@ -36,7 +36,7 @@ class WC_Cielo_Admin_Orders {
 
         if (isset($order)) {
             if (is_array($order)) {
-                if ($order->payment_method == 'cielo_credit') {
+                if ($order->get_payment_method() == 'cielo_credit') {
                     add_meta_box(
                         'wc_cielo',
                         __('Cielo - Capture Sale', 'cielo-woocommerce'),

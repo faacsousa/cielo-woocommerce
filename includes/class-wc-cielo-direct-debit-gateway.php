@@ -291,7 +291,7 @@ class WC_Cielo_Direct_Debit_Gateway extends WC_Cielo_Helper {
 	 * @return array
 	 */
 	public function order_items_payment_details( $items, $order ) {
-		if ( $this->id === $order->payment_method ) {
+		if ( $this->id === $order->get_payment_method() ) {
 			$direct_debit_brand   = get_post_meta( $order->id, '_wc_cielo_direct_debit_brand', true );
 			//$direct_debit_brand = $this->get_payment_method_name( $direct_debit_brand );
 

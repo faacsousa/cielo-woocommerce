@@ -803,7 +803,7 @@ abstract class WC_Cielo_Helper extends WC_Payment_Gateway {
 			$order_url = add_query_arg( 'order', $order_id, get_permalink( woocommerce_get_page_id( 'view_order' ) ) );
 		}
 
-		if ( $order->status == 'processing' || $order->status == 'completed' ) {
+		if ( $order->get_status() == 'processing' || $order->get_status() == 'completed' ) {
 			echo '<div class="woocommerce-message"><a href="' . esc_url( $order_url ) . '" class="button" style="display: block !important; visibility: visible !important;">' . __( 'View order details', 'cielo-woocommerce' ) . '</a>' . sprintf( __( 'Your payment has been received successfully.', 'cielo-woocommerce' ), wc_price( $order->get_total() ) ) . '<br />' . __( 'The authorization code was generated.', 'cielo-woocommerce' ) . '</div>';
 		} else {
 			echo '<div class="woocommerce-info">' . sprintf( __( 'For more information or questions regarding your order, go to the %s.', 'cielo-woocommerce' ), '<a href="' . esc_url( $order_url ) . '">' . __( 'order details page', 'cielo-woocommerce' ) . '</a>' ) . '</div>';
