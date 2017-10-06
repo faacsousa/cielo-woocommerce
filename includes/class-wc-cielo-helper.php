@@ -144,7 +144,7 @@ abstract class WC_Cielo_Helper extends WC_Payment_Gateway {
 			$url = $woocommerce->api_request_url( get_class( $this ) );
 		}
 
-		return urlencode( add_query_arg( array( 'key' => $order->order_key, 'order' => ( method_exists( $order, 'get_id' ) ? $order->get_id() : $order->id ) ), $url ) );
+		return urlencode( add_query_arg( array( 'key' => $order->get_order_key(), 'order' => ( method_exists( $order, 'get_id' ) ? $order->get_id() : $order->id ) ), $url ) );
 	}
 
 	/**
@@ -687,7 +687,7 @@ abstract class WC_Cielo_Helper extends WC_Payment_Gateway {
 			$order_id = absint( $_GET['order'] );
 			$order    = new WC_Order( $order_id );
 
-			if ( $order->order_key == $_GET['key'] ) {
+			if ( $order->get_order_key() == $_GET['key'] ) {
 				do_action( 'woocommerce_' . $this->id . '_return', $order );
 			}
 		}
@@ -720,7 +720,7 @@ abstract class WC_Cielo_Helper extends WC_Payment_Gateway {
 			if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1', '>=' ) ) {
 				$return_url = $this->get_return_url( $order );
 			} else {
-				$return_url = add_query_arg( 'order', ( method_exists( $order, 'get_id' ) ? $order->get_id() : $order->id ), add_query_arg( 'key', $order->order_key, get_permalink( woocommerce_get_page_id( 'thanks' ) ) ) );
+				$return_url = add_query_arg( 'order', ( method_exists( $order, 'get_id' ) ? $order->get_id() : $order->id ), add_query_arg( 'key', $order->get_order_key(), get_permalink( woocommerce_get_page_id( 'thanks' ) ) ) );
 			}
 
 

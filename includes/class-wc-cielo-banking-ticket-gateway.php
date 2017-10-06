@@ -191,7 +191,7 @@ class WC_Cielo_Banking_Ticket_Gateway extends WC_Cielo_Helper {
 	 * @param float  $order_total
 	 */
 	protected function get_checkout_form( $model = 'default', $order_total = 0 ) {
-		woocommerce_get_template(
+		wc_get_template(
 			'banking-ticket/' . $model . '-payment-form.php',
 			array(
 				'methods'        => $this->get_available_methods_options(),
