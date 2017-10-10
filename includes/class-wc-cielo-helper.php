@@ -429,7 +429,11 @@ abstract class WC_Cielo_Helper extends WC_Payment_Gateway {
                 $at_sight = 'cielo-at-sight';
 
                 $credit_total    = (isset($this->credit_discount_x1)) ? ($order_total * ((100 - $this->credit_discount_x1) / 100)) : $order_total;
+                if (empty($this->credit_discount_x1)){
+                    $credit_interest = '';
+                } else {
                 $credit_interest = sprintf( __( 'with discount. Total: %s', 'cielo-woocommerce' ), sanitize_text_field( wc_price( $credit_total ) ) );
+                }
 			}
 
 			if ( 'select' == $type ) {
@@ -475,7 +479,11 @@ abstract class WC_Cielo_Helper extends WC_Payment_Gateway {
         if ( 1 == $quantity ) {
 
             $credit_total    = (isset($this->credit_discount_x1)) ? ($order_total * ((100 - $this->credit_discount_x1) / 100)) : $order_total;
-            $credit_interest = sprintf( __( 'with discount. Total: %s', 'cielo-woocommerce' ), sanitize_text_field( wc_price( $credit_total ) ) );
+            if (empty($this->credit_discount_x1)) {
+                $credit_interest = '';
+            } else {
+                $credit_interest = sprintf( __( 'with discount. Total: %s', 'cielo-woocommerce' ), sanitize_text_field( wc_price( $credit_total ) ) );
+            }
         }
 
 		return sprintf( __( '%sx of %s %s', 'cielo-woocommerce' ), $quantity, sanitize_text_field( wc_price( $credit_total ) ), $credit_interest );
